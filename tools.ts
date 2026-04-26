@@ -158,7 +158,10 @@ export function registerMemorySync(pi: ExtensionAPI, settings: MemoryMdSettings)
       const memoryDir = getMemoryDir(settings, ctx.cwd);
       if (action === "status") {
         const memoryRepo = getProjectMeta(localPath);
-        const initialized = isMemoryInitialized(memoryDir) && memoryRepo.gitRoot === memoryRepo.cwd;
+        const initialized =
+          isMemoryInitialized(memoryDir) &&
+          memoryRepo.gitRoot &&
+          fs.realpathSync(memoryRepo.gitRoot) === fs.realpathSync(memoryRepo.cwd);
         if (!initialized) {
           return {
             content: [{ type: "text", text: "Memory repository not initialized. Use memory_init to set up." }],

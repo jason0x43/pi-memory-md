@@ -77,7 +77,7 @@ export async function syncRepository(pi: ExtensionAPI, settings: MemoryMdSetting
 
   if (fs.existsSync(localPath)) {
     const project = getProjectMeta(localPath);
-    if (project.gitRoot !== project.cwd) {
+    if (project.gitRoot && fs.realpathSync(project.gitRoot) !== fs.realpathSync(project.cwd)) {
       return { success: false, message: `Directory exists but is not a git repo: ${localPath}` };
     }
 
@@ -121,7 +121,7 @@ export async function pushRepository(pi: ExtensionAPI, settings: MemoryMdSetting
   }
 
   const project = getProjectMeta(localPath);
-  if (project.gitRoot !== project.cwd) {
+  if (project.gitRoot && fs.realpathSync(project.gitRoot) !== fs.realpathSync(project.cwd)) {
     return { success: false, message: `Git repository not initialized: ${localPath}` };
   }
 
