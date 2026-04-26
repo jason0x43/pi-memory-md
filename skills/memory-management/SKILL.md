@@ -12,6 +12,8 @@ description: Core memory operations guide for pi-memory-md - create, read, updat
 
 ## Directory Structure
 
+The user's global pi agent directory is at `$PI_CODING_AGENT_DIR`, or `~/.pi/agent` if that variable is not defined.
+
 **Base path**: Configured via `settings["pi-memory-md"].localPath` (default: `~/.pi/memory-md`)
 
 ```

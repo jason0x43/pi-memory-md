@@ -1,6 +1,6 @@
 import fs from "node:fs";
-import os from "node:os";
 import path from "node:path";
+import { getAgentDir } from "@mariozechner/pi-coding-agent";
 import matter from "gray-matter";
 import { DEFAULT_HOOKS, normalizeHooks } from "./hooks.js";
 import { normalizeTapeKeywords } from "./tape/tape-gate.js";
@@ -186,7 +186,7 @@ function normalizeSettings(
 }
 
 export function loadSettings(cwd = process.cwd()): MemoryMdSettings {
-  const globalSettingsPath = path.join(os.homedir(), ".pi", "agent", "settings.json");
+  const globalSettingsPath = path.join(getAgentDir(), "settings.json");
   const projectSettingsPath = path.join(cwd, ".pi", "settings.json");
   const globalSettings = readSettingsFile(globalSettingsPath);
   const projectSettings = readSettingsFile(projectSettingsPath);

@@ -9,6 +9,8 @@ description: Initial setup and bootstrap guide for pi-memory-md repository. Use 
 2. **Git access** - Configure SSH keys or personal access token
 3. **Node.js & npm** - For installing the package
 
+The user's global pi agent directory is at `$PI_CODING_AGENT_DIR`, or `~/.pi/agent` if that variable is not defined.
+
 ## Step 1: Install Package
 
 ```bash
@@ -167,7 +169,7 @@ Automate setup with this script:
 # setup-memory-md.sh
 
 REPO_URL="git@github.com:username/memory-repo.git"
-SETTINGS_FILE="$HOME/.pi/agent/settings.json"
+SETTINGS_FILE="${PI_CODING_AGENT_DIR:-$HOME/.pi/agent}/settings.json"
 
 # Backup existing settings
 cp "$SETTINGS_FILE" "$SETTINGS_FILE.bak"
@@ -176,12 +178,13 @@ cp "$SETTINGS_FILE" "$SETTINGS_FILE.bak"
 node -e "
 const fs = require('fs');
 const path = require('path');
+const { getAgentDir } = require('@mariozechner/pi-coding-agent');
 const settingsPath = '$SETTINGS_FILE';
 const settings = JSON.parse(fs.readFileSync(settingsPath, 'utf8'));
 settings['pi-memory-md'] = {
   enabled: true,
   repoUrl: '$REPO_URL',
-  localPath: path.join(require('os').homedir(), '.pi', 'memory-md'),
+  localPath: path.resolve(getAgentDir(), '..', 'memory-md'),
   hooks: {
     sessionStart: ["pull"],
     sessionEnd: []

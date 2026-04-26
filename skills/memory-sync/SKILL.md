@@ -9,6 +9,8 @@ Git synchronization for pi-memory-md repository.
 
 ## Configuration
 
+The user's global pi agent directory is at `$PI_CODING_AGENT_DIR`, or `~/.pi/agent` if that variable is not defined.
+
 Configure `pi-memory-md.repoUrl` in settings file (global: `~/.pi/agent/settings.json`, project: `.pi/settings.json`)
 
 ## Sync Operations

@@ -2,8 +2,9 @@ import { execFileSync } from "node:child_process";
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
+import { getAgentDir } from "@mariozechner/pi-coding-agent";
 
-export const DEFAULT_LOCAL_PATH = path.join(os.homedir(), ".pi", "memory-md");
+export const DEFAULT_LOCAL_PATH = path.resolve(getAgentDir(), "..", "memory-md");
 export const DEFAULT_TAPE_DIRNAME = "TAPE";
 const DEFAULT_TAPE_EXCLUDE_DIRS_BY_PLATFORM: Record<string, string[]> = {
   darwin: ["/System"],
